@@ -6,7 +6,7 @@ body {
 .background-home {
     min-width: 100%;
     min-height: 100%;
-    background-image: url('/static/portfolio/css/img/code.jpg');
+    background-image: url('/static/portfolio/img/code.jpg');
     background-size: cover;
     margin: -15px -15px;
     position: absolute;
@@ -19,6 +19,119 @@ body {
 	margin-top: 150px;
 }
 
+@media only screen and (max-width: 768px) {
+    #jumbotron-title {
+        font-size: 2.0rem;
+        font: bold;
+    }
+}
+
 h1 {
     color: purple;
+}
+
+.page-heading {
+    position: relative;
+    margin-top: 100px;
+  }
+
+.page-content {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.header {
+    grid-area: header;
+    padding: 20px;
+}
+
+.language {
+    grid-area: language;
+    background-color: aqua;
+    padding: 20px;
+}
+
+.framework {
+    grid-area: framework;
+    background-color: greenyellow;
+    padding: 20px;
+}
+
+.version {
+    grid-area: version;
+    background-color: rgb(0, 162, 255);
+    padding: 20px;
+}
+
+.markup {
+    grid-area: markup;
+    background-color: orange;
+    padding: 20px;
+}
+
+.database {
+    grid-area: database;
+    background-color:rgb(214, 214, 226);
+    padding: 20px;
+}
+
+.agile {
+    grid-area: agile;
+    background-color: burlywood;
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-template-areas:
+        'header header header header header header'
+        'language language framework framework version version'
+        'markup markup database database agile agile';
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.grid-container > div {
+    text-align: left;
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container {
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-rows: auto;
+        grid-template-areas: 
+            'header header'
+            'language language'
+            'framework framework'
+            'version version'
+            'markup markup'
+            'database database'
+            'agile agile';
+        grid-gap: 10px;
+    }
+    .grid-container > div {
+        text-align: left;
+        border-radius: 25px;
+        }
+}
+
+.cell-header-title {
+    font-size: 25px;
+}
+
+.cell-header-content {
+    font-size: 23px;
+}
+
+.cell-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cell-content {
+    font-size: 23px;
 }
