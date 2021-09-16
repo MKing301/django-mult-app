@@ -11,3 +11,9 @@ def about(request):
     return render(request=request,
                   template_name="portfolio/about.html"
                 )
+
+
+def projects(request):
+    return render(request=request,
+                  template_name="portfolio/projects.html"
+                )
