@@ -1,0 +1,388 @@
+{% extends 'portfolio/base.html' %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+{% load static %}
+    <div>
+        <main role="main">
+            <header class="page-heading">
+                <h1>Projects</h1>
+            </header>
+            <section class="page-content">
+                <div class="row project-images">
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-server">
+                        <a href="#modal-server">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/server.png' %}" height="220" alt="image servers on the cloud in a blue sky" class="image"/>
+                                        <!-- image source: http://all-free-download.com/free-vector/download/creative-server-design-elements-vector_586789.html -->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/linux-server-configuration" target="_blank" class="btn btn-primary btn-sm">Linux Server Config</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-catalog">
+                        <a href="#modal-catalog">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/catalog.png' %}" height="220" alt="image of online book catalog" class="image"/>
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                        </div>
+                                    </picture>
+                                </div>
+                            </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/fullstack-nanodegree-vm" target="_blank" class="btn btn-primary btn-sm">Item Catalog</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-map">
+                        <a href="#modal-map">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/map.png' %}" height="220" alt="image of popular locations in St Louis, MO" class="image"/>
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/neighborhood-map" target="_blank" class="btn btn-primary btn-sm">Neighborhood Map</a>
+                        </div>
+                    </div>
+                </div> <!-- end of row div for project-links -->
+                <br>
+                <div class="row project-images">
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-rfid">
+                        <a href="#modal-rfid">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/access-control-1901327_1920.png' %}" height="220" alt="rfid tag/reader gif" class="image"/>
+                                        <!-- image source:  https://pixabay.com/photos/access-control-chip-125khts-1901327/-->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/rfid-attendance" target="_blank" class="btn btn-primary btn-sm">RFID Tag Reader</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-log-analysis">
+                        <a href="#modal-log-analysis">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/business-1031754_640.png' %}" height="220" alt="business man reading business section of newspaper" class="image"/>
+                                        <!-- image source: https://pixabay.com/photos/business-business-man-newspaper-man-1031754/ -->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/Log_Analysis" target="_blank" class="btn btn-primary btn-sm">Log Analysis</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-password">
+                        <a href="#modal-password">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/password-2781614_1280.png' %}" height="220" alt="image servers on the cloud in a blue sky" class="image"/>
+                                        <!-- image source: https://pixabay.com/illustrations/password-app-application-business-2781614/ -->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/password-generator" target="_blank" class="btn btn-primary btn-sm">Password Generator</a>
+                        </div>
+                    </div>
+                </div> <!-- end of row div for project-links -->
+                <br>
+                <div class="row project-images">
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-pull-name">
+                        <a href="#modal-pull-name">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/top-hat-305546_1280.png' %}" height="220" alt="dice on corner" class="image"/>
+                                        <!-- image source: https://pixabay.com/vectors/top-hat-magic-logo-blue-black-305546/ -->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/pull-name-from-hat" target="_blank" class="btn btn-primary btn-sm">Pull Name</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-movie">
+                        <a href="#modal-movie">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/movie.png' %}" height="220" alt="image of website displaying movie posters" class="image"/>
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <div>
+                                <a href="https://github.com/MKing301/ud036_StarterCode" target="_blank" class="btn btn-primary btn-sm">Movie Library</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-toggle="modal" data-target="#modal-portfolio">
+                        <a href="#modal-portolio">
+                            <div class="row justify-content-center">
+                                <picture>
+                                    <div class="container-image">
+                                        <img src="{% static 'portfolio/img/portfolio.png' %}" height="220" alt="image of leather portfolio" class="image"/>
+                                        <!-- image source: http://all-free-download.com/free-vector/download/briefcase-icon_312218.html -->
+                                            <div class="middle">
+                                                <div class="text">Info</div>
+                                            </div>
+                                    </div>
+                                </picture>
+                            </div>
+                        </a>
+                        <div class="row justify-content-center">
+                            <a href="https://github.com/MKing301/Portfolio" target="_blank" class="btn btn-primary btn-sm">Project Portfolio</a>
+                        </div>
+                    </div>
+                </div> <!-- end of row div for project-links -->
+            </section> <!-- end of project section -->
+        </main>
+
+        <!-- The Modal -->
+
+        <!-- Server-->
+        <div class="modal container text-center" id="modal-server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Linux Server Configuration</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/server.png' %}" style="max-height:100%;max-width:100%" alt="image servers on the cloud in a blue sky" />
+                            <!-- image source: http://all-free-download.com/free-vector/download/creative-server-design-elements-vector_586789.html -->
+                        </picture>
+                    </div>
+                    <p class="mb-5">Python, SQL, PostreSQL and Amazon Lightsail AWS</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Catalog-->
+        <div class="modal container text-center" id="modal-catalog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Catalog</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/catalog.png' %}" style="max-height:100%;max-width:100%" alt="image of online book catalog" />
+                        </picture>
+                    </div>
+                    <p class="mb-5">Flask, Oauth2, CRUD(create, read, update, and delete)<br>and responsive Web Design</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map-->
+        <div class="modal container text-center" id="modal-map">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Neighborhood Map</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/map.png' %}" style="max-height:100%;max-width:100%" alt="image of popular locations in St Louis, MO" />
+                        </picture>
+                    </div>
+                    <p class="mb-5">Google Map API, Wikipedia API, Javascript<br>and asynchronous programming</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RFID-->
+        <div class="modal container text-center" id="modal-rfid">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">RFID</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/rfid_verify_user.gif' %}" style="max-height:100%;max-width:100%" alt="image of a newspaper with News Special Report heading" />
+                        </picture>
+                    </div>
+                    <p class="mb-5">Python, PostreSQL, <a href="https://www.phidgets.com/docs/Language_-_Python" target="_blank">Phidget</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Analysis-->
+        <div class="modal container text-center" id="modal-log-analysis">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Log Analysis</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/business-1031754_640.png' %}" style="max-height:100%;max-width:100%" alt="image of a newspaper with News Special Report heading" />
+                            <!-- image source: https://pixabay.com/photos/business-business-man-newspaper-man-1031754/ -->
+                        </picture>
+                    </div>
+                    <p class="mb-5">Python, SQL and PostreSQL</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password-->
+        <div class="modal container text-center" id="modal-password">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Password Generator</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/password-2781614_1280.png' %}" style="max-height:100%;max-width:100%" alt="combination lock" />
+                            <!-- image source:  https://pixabay.com/illustrations/password-app-application-business-2781614/-->
+                        </picture>
+                    </div>
+                    <p class="mb-5">Python (Desktop GUI)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pull Name-->
+        <div class="modal container text-center" id="modal-pull-name">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Pull Name</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/top-hat-305546_1280.png' %}" style="max-height:100%;max-width:100%" alt="image of a newspaper with News Special Report heading" />
+                            <!-- image source: https://pixabay.com/vectors/top-hat-magic-logo-blue-black-305546/ -->
+                        </picture>
+                    </div>
+                    <p class="mb-5">JavaScript</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie-->
+        <div class="modal container text-center" id="modal-movie">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Movie Library</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/movie.png' %}" style="max-height:100%;max-width:100%" alt="image of website displaying movie posters" />
+                        </picture>
+                    </div>
+                    <p class="mb-5">Python</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio-->
+        <div class="modal container text-center" id="modal-portfolio">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Portfolio</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <picture>
+                            <img src="{% static 'portfolio/img/portfolio.png' %}" style="max-height:100%;max-width:100%" alt="image of website displaying movie posters" />
+                            <!-- image source: http://all-free-download.com/free-vector/download/briefcase-icon_312218.html -->
+                        </picture>
+                    </div>
+                    <p class="mb-5">HTML, Bootstrap and Responsive Web Design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
