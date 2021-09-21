@@ -26,6 +26,10 @@
                     <label for="user_request">How can I help you?</label>
                     {% render_field form.user_request class+="form-control textarea" row="10" required="true" %}
                 </div>
+                <br>
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="{{sitekey}}"></div>
+                <br>
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                 </div>
