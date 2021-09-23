@@ -2,6 +2,7 @@ import requests
 import os
 
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from .models import Contact
 from .forms import ContactForm
 
@@ -43,8 +44,15 @@ def contact(request):
 
               if result['success']:
                     form.save()
-
-              return redirect("/")
+                    messages.success(request, "Request submitted!  Thank you for contacting us.")
+                    return redirect("/")
+              else:
+                    messages.error(request, "Invalid reCAPTCHA.  Please try again.")
+                    return render(
+                      request=request,
+                        template_name="portfolio/contact.html",
+                        context={'form': form, "sitekey": os.environ.get('GOOGLE_RECAPTCHA_SITE_KEY')}
+                      )
 
       # if a GET (or any other method) we'll create a blank form
       else:
