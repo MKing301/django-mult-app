@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import Contact
 from .forms import ContactForm
+from .helpers import email_admin
 
 
 def index(request):
@@ -44,6 +45,18 @@ def contact(request):
 
               if result['success']:
                     form.save()
+                    first_name = form.cleaned_data.get("first_name")
+                    last_name = form.cleaned_data.get("last_name")
+                    email = form.cleaned_data.get("email")
+                    user_request = form.cleaned_data.get("user_request")
+
+                    email_admin(
+                        'New User Request Submitted',
+                        f'''
+                        <p>Message from <strong>{first_name} {last_name}</strong> [{email}]</p>
+                        <p>{user_request}</p>
+                        '''
+                    )
                     messages.success(request, "Request submitted!  Thank you for contacting us.")
                     return redirect("/")
               else:
