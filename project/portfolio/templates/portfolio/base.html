@@ -47,20 +47,33 @@
   </head>
 
   <body>
+    <div class="container-fluid"> <!-- container-fluid class-->
+      <div id="loader" class="hidden"> <!-- loader container -->
+        <img
+        src="{% static 'portfolio/img/Spinner-5.gif' %}"
+        alt="Loading..."
+        />
+      </div> <!-- end loader container -->
 
-    <!-- Page Content -->
-    <div class="container-fluid">
+      <!-- Page Content -->
       {% include 'portfolio/includes/_navbar.html' %}
       {% include "portfolio/includes/_messages.html" %}
       {% block content %}
       {% endblock %}
-    </div><!-- End container-fluid class-->
+    </div> <!-- End container-fluid class-->
 
     <script type="text/Javascript">
       setTimeout(function() {
         //Closing the alert
         $('.alert').alert('close');
       }, 5000);
+    </script>
+
+    <script type="text/Javascript">
+      const send_email = document.getElementById('send_btn').addEventListener('click', function() {
+        let loaderh = document.getElementById('loader').classList.remove('hidden');
+        let loaderv = document.getElementById('loader').className += 'visible';
+      });
     </script>
 
   </body>
