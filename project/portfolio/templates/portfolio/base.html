@@ -54,8 +54,14 @@
       {% include "portfolio/includes/_messages.html" %}
       {% block content %}
       {% endblock %}
-    </div>
-    <!-- End container class-->
+    </div><!-- End container-fluid class-->
+
+    <script type="text/Javascript">
+      setTimeout(function() {
+        //Closing the alert
+        $('.alert').alert('close');
+      }, 5000);
+    </script>
 
   </body>
 </html>
