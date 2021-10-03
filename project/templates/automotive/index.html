@@ -1,0 +1,16 @@
+{% extends 'automotive/autos_base.html' %}
+{% block title %}Autos Home{% endblock %}
+{% block body %}
+{% load static %}
+<div>
+  <hr>
+    <div class="flex-container">
+        <div class="flex-child">
+            <img src="{% static  'automotive/img/max.png' %}" alt="2016 Nissan Maxima" class="responsive"/>
+        </div>
+        <div class="flex-child">
+            <img src="{% static  'automotive/img/bmw.png' %}" alt="2014 BMW 535I xDrive" class="responsive"/>
+        </div>
+    </div>
+<div>
+{% endblock %}
