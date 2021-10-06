@@ -39,3 +39,23 @@ class Dealership(models.Model):
             dealership name.
             """
         return self.name
+
+
+class Advisor(models.Model):
+    """
+    Model defines a service advisor at a dealership which has name,
+    address, city, state, postal code and office number.
+    """
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=50)
+    employee_number = models.CharField(max_length=25)
+    email = models.EmailField(max_length=50)
+    contact_number = models.CharField(max_length=15)
+    dealership = models.ForeignKey(Dealership)
+
+    def __str__(self):
+        """
+            Represent advisor class object as a string consisting of the
+            advisor's first and last name.
+            """
+        return self.first_name + ' ' + self.last_name
