@@ -51,7 +51,11 @@ class Advisor(models.Model):
     employee_number = models.CharField(max_length=25)
     email = models.EmailField(max_length=50)
     contact_number = models.CharField(max_length=15)
-    dealership = models.ForeignKey(Dealership)
+    dealership = models.ForeignKey(
+        Dealership,
+        blank=True,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         """
