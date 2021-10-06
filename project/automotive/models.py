@@ -28,8 +28,8 @@ class Dealership(models.Model):
     """
     name = models.CharField(max_length=150)
     address = models.CharField(max_length=50)
-    city = models.CharField(max_length=4)
-    _state = models.CharField(max_length=17)
+    city = models.CharField(max_length=50)
+    dealership_state = models.CharField(max_length=2)
     postal_code = models.CharField(max_length=8)
     office_number = models.CharField(max_length=15)
 
@@ -63,3 +63,40 @@ class Advisor(models.Model):
             advisor's first and last name.
             """
         return self.first_name + ' ' + self.last_name
+
+
+class Service(models.Model):
+    """
+    Model defines a service performed at a dealership which has
+    service_date, link, make, dealership, service, service_advisor,
+    mileage, cost, comments and inserted_date.
+    """
+    service_date = models.DateField()
+    link = models.TextField()
+    make = models.ForeignKey(
+        Vehicle,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+    dealership = models.ForeignKey(
+        Dealership,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+    service = models.TextField()
+    service_advisor = models.ForeignKey(
+        Advisor,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+    mileage = models.IntegerField()
+    cost = models.DecimalField(max_digits=5, decimal_places=2)
+    comments = models.TextField()
+    inserted_date = models.DateTimeField()
+
+    def __str__(self):
+        """
+            Represent service class object as a string consisting of the
+            service date and make.
+            """
+        return self.service_date + ' ' + self.make
