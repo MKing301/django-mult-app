@@ -1,0 +1,40 @@
+{% extends 'automotive/autos_base.html' %}
+{% block title %}Autos Home{% endblock %}
+{% block body %}
+{% load static %}
+    <div class="container-fluid">
+      <header class="page-heading">
+          <h1>Automotive Log</h1>
+      </header>
+      <hr>
+        <table class="table table-striped table-responsive-sm table-bordered">
+        	<tr>
+        		<th class="fit">ID</th>
+    			<th class="fit">Service Date</th>
+    			<th class="fit">Document</th>
+        		<th class="fit">Make</th>
+        		<th class="fit">Dealership</th>
+        		<th class="fit">Service</th>
+        		<th class="fit">Service Advisor</th>
+        		<th class="fit">Mileage</th>
+    			<th class="fit">Cost</th>
+    			<th class="fit">Comments</th>
+        	</tr>
+        	{% for service in services %}
+        		<tr>
+        			<td class="fit">{{service.id}}</td>
+    				<td class="fit">{{service.service_date}}</td>
+    				<td class="fit"><a href="#">View</a></td>
+        			<td class="fit">{{service.make}}</td>
+        			<td class="fit">{{service.dealership}}</td>
+        			<td class="fit">{{service.service}}</td>
+        			<td class="fit">{{service.service_advisor}}</td>
+        			<td class="fit">{{service.mileage}}</td>
+    				<td class="fit">{{service.cost}}</td>
+    				<td class="fit">{{service.comments}}</td>
+        		</tr>
+
+        	{% endfor %}
+        </table>
+    <div>
+{% endblock %}
