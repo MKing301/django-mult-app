@@ -15,9 +15,9 @@ class Vehicle(models.Model):
 
     def __str__(self):
         """
-            Represent vehicle class object as a string consisting of the
-            year, make and model.
-            """
+        Represent vehicle class object as a string consisting of the
+        year, make and model.
+        """
         return self.year + ' ' + self.make + ' ' + self.model
 
 
@@ -26,7 +26,7 @@ class Dealership(models.Model):
     Model defines a dealership which has name, address, city
     state, postal code and office number.
     """
-    name = models.CharField(max_length=150)
+    name = models.TextField()
     address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     dealership_state = models.CharField(max_length=2)
@@ -35,9 +35,9 @@ class Dealership(models.Model):
 
     def __str__(self):
         """
-            Represent dealership class object as a string consisting of the
-            dealership name.
-            """
+        Represent dealership class object as a string consisting of the
+        dealership name.
+        """
         return self.name
 
 
@@ -46,10 +46,10 @@ class Advisor(models.Model):
     Model defines a service advisor at a dealership which has name,
     address, city, state, postal code and office number.
     """
-    first_name = models.CharField(max_length=25)
+    first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=50)
     employee_number = models.CharField(max_length=25)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=255)
     contact_number = models.CharField(max_length=15)
     dealership = models.ForeignKey(
         Dealership,
@@ -59,9 +59,9 @@ class Advisor(models.Model):
 
     def __str__(self):
         """
-            Represent advisor class object as a string consisting of the
-            advisor's first and last name.
-            """
+        Represent advisor class object as a string consisting of the
+        advisor's first and last name.
+        """
         return self.first_name + ' ' + self.last_name
 
 
@@ -71,8 +71,8 @@ class Service(models.Model):
     service_date, link, make, dealership, service, service_advisor,
     mileage, cost, comments and inserted_date.
     """
-    service_date = models.DateField()
-    link = models.TextField()
+    service_date = models.DateField(blank=True)
+    link = models.TextField(blank=True)
     make = models.ForeignKey(
         Vehicle,
         blank=True,
@@ -89,14 +89,14 @@ class Service(models.Model):
         blank=True,
         on_delete=models.CASCADE
     )
-    mileage = models.IntegerField()
-    cost = models.DecimalField(max_digits=5, decimal_places=2)
-    comments = models.TextField()
-    inserted_date = models.DateTimeField()
+    mileage = models.IntegerField(blank=True)
+    cost = models.DecimalField(blank=True, max_digits=8, decimal_places=2)
+    comments = models.TextField(blank=True)
+    inserted_date = models.DateTimeField(blank=True)
 
     def __str__(self):
         """
-            Represent service class object as a string consisting of the
-            service date and make.
-            """
-        return self.service_date + ' ' + self.make
+        Represent service class object as a string consisting of the
+        service date and make.
+        """
+        return str(self.make) + '@' + str(self.mileage) + 'mi'
