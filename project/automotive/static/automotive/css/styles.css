@@ -19,3 +19,7 @@ body {
     grid-area: framework;
     padding: 20px;
 }
+
+.pagination {
+    justify-content: center;
+}
