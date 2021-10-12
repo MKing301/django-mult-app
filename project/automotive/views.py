@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Service
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -10,7 +11,11 @@ def index(request):
 
 
 def log(request):
-    services = Service.objects.order_by('-service_date')
+    # Set up pagination
+    p = Paginator(Service.objects.order_by('-service_date'), 5)
+    page = request.GET.get('page')
+    services = p.get_page(page)
+
     return render(
         request=request,
         template_name="automotive/log.html",
