@@ -1,0 +1,171 @@
+{% extends 'automotive/autos_base.html' %}
+{% block title %}Add Service{% endblock %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <header class="page-heading">
+        <h1>Add Service</h1>
+    </header>
+    <hr>
+    <form class="form" method="POST">
+        {%csrf_token%}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="service_date">Service Date:</label>
+                    <input
+                        type="date"
+                        class="form-control form-control-sm"
+                        data-date-format="mm/dd/yyyy"
+                        id="service_date"
+                        name="service_date"
+                        required="true"
+                    />
+                </div>
+                <div class="col-sm-9">
+                    <label for="Dropbox Link">Dropbox Link:</label>
+                    <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        id="link"
+                        name="link"
+                    />
+                </div>
+            </div> <!-- end row -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="make">Make</label>
+                    <select
+                        class="form-control form-control-sm"
+                        id="make"
+                        name="make"
+                        required="true"
+                    />
+                        <option
+                        selected="true"
+                        value="Select a Vehicle"
+                        disabled
+                        >
+                            Select a Vehicle
+                        </option>
+                        {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.id}}">
+                            {{ vehicle.year}} {{ vehicle.make}} {{ vehicle.model}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                        <label for="dealership">Dealership</label>
+                        <select
+                            class="form-control form-control-sm"
+                            id="dealership"
+                            name="dealership"
+                            required="true"
+                        />
+                            <option
+                            selected="true"
+                            value="Select a Dealership"
+                            disabled
+                            >
+                                Select a Dealership
+                            </option>
+                            {% for dealership in dealerships %}
+                            <option value="{{ dealership.id}}">
+                                {{ dealership.name}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    </div>  <!-- end row -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="work_performed">Work Performed:</label>
+                            <textarea
+                                class="form-control form-control-sm textarea"
+                                id="work_performed"
+                                name="work_performed"
+                                row="10"
+                                required="true"
+                            />
+                            </textarea>
+                        </div>
+                        </div>  <!-- end row -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                    <label for="service_advisor">Service Advisor:</label>
+                                    <select
+                                        class="form-control form-control-sm"
+                                        id="service_advisor"
+                                        name="service_advisor"
+                                        required="true"
+                                    />
+                                        <option
+                                        selected="true"
+                                        value="Select a Service Advisor"
+                                        disabled
+                                        >
+                                            Select a Service Advisor
+                                        </option>
+                                        {% for advisor in advisors %}
+                                        <option value="{{ advisor.id}}">
+                                            {{ advisor.first_name}} {{advisor.last_name}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            <div class="col-sm-3">
+                                    <label for="mileage">Mileage:</label>
+                                    <input
+                                        type="number"
+                                        class="form-control form-control-sm"
+                                        id="mileage"
+                                        name="mileage"
+                                    />
+                            </div>
+                            <div class="col-sm-3">
+                                    <label for="cost">Service Cost:</label>
+                                    <div class="input-group-append input-group-sm">
+                                        <span class="form-control-sm input-group-text input-group-sm">$</span>
+                                    <input
+                                        type="number"
+                                        class="form-control form-control-sm"
+                                        id="cost"
+                                        name="cost"
+                                        required="true"
+                                    />
+                                </div>
+                            </div>
+                        </div>  <!-- end row -->
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <label for="comments">Comments:</label>
+                            <textarea
+                                class="form-control form-control-sm textarea"
+                                id="comments"
+                                name="comments"
+                                row="10"
+                            />
+                            </textarea>
+                        </div>
+                    </div> <!-- end row -->
+                </div> <!-- end form group -->
+                <br>
+                <div class="form-group">
+                    <button
+                        class="btn btn-sm btn-primary"
+                        id="add_svc_btn"
+                        type="submit"
+                        >
+                            Submit
+                    </button>
+                    <a href="/autos/log/"
+                        class="btn btn-sm btn-secondary"
+                        id="cancel_btn"
+                        >
+                            Cancel
+                    </a>
+                </div>
+    </form>
+</div>
+{% endblock %}
