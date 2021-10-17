@@ -83,7 +83,7 @@ class Service(models.Model):
         blank=True,
         on_delete=models.CASCADE
     )
-    service = models.TextField()
+    work_performed = models.TextField()
     service_advisor = models.ForeignKey(
         Advisor,
         blank=True,
@@ -92,7 +92,7 @@ class Service(models.Model):
     mileage = models.IntegerField(blank=True)
     cost = models.DecimalField(blank=True, max_digits=8, decimal_places=2)
     comments = models.TextField(blank=True)
-    inserted_date = models.DateTimeField(blank=True)
+    inserted_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """
