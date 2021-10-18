@@ -24,7 +24,19 @@
         		<tr>
         			<td class="fit">{{service.id}}</td>
     				<td class="fit">{{service.service_date}}</td>
-    				<td class="fit"><a href="#">View</a></td>
+                    {% if service.link %}
+    				    <td class="fit">
+                            <a href="{{service.link}}" target="_blank">
+                                View
+                            </a>
+                        </td>
+                    {% else %}
+                        <td class="fit">
+                            <p>
+                                No File
+                            </p>
+                        </td>
+                    {% endif %}
         			<td class="fit">{{service.make}}</td>
         			<td class="fit">{{service.dealership}}</td>
         			<td class="fit">{{service.work_performed}}</td>
