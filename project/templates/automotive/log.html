@@ -43,7 +43,7 @@
             			<td class="fit">{{service.work_performed}}</td>
             			<td class="fit">{{service.service_advisor}}</td>
             			<td class="fit">{{service.mileage}}</td>
-        				<td class="fit">{{service.cost}}</td>
+        				<td class="fit">${{service.cost|floatformat:2}}</td>
         				<td class="fit">{{service.comments}}</td>
                         <td class="fit">
                             <a href="#" class="btn btn-primary btn-sm">
