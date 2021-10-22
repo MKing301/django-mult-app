@@ -32,3 +32,7 @@ img {
 label {
     padding-top: 30px;
 }
+
+#service_cost {
+    text-align: right;
+}
