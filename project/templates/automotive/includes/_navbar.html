@@ -6,8 +6,8 @@
     <div class="collapse navbar-collapse" id="navbarsDefault">
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav right">
-            <li><a class="nav-link" href="/autos">Home</a></li>
-            <li><a class="nav-link" href="log/">Log</a></li>
+            <li><a class="nav-link" href="{% url 'automotive:index' %}">Home</a></li>
+            <li><a class="nav-link" href="{% url 'automotive:log' %}">Log</a></li>
         </ul>
     </div>
 </nav>
