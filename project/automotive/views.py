@@ -44,6 +44,43 @@ def add_service(request):
     )
 
 
+def edit_service(request, id):
+    service = Service.objects.get(id=id)
+
+    vehicles = Vehicle.objects.exclude(
+        id=service.make.pk).order_by('year', 'make')
+    dealerships = Dealership.objects.exclude(
+        id=service.dealership.pk).order_by('name')
+    advisors = Advisor.objects.exclude(
+        id=service.service_advisor.pk).order_by('last_name')
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Your service record was updted successfully!'
+            )
+            return redirect('automotive:log')
+
+    else:
+        form = ServiceForm(instance=service)
+
+        return render(
+            request=request,
+            template_name='automotive/edit_service.html',
+            context={
+                'form': form,
+                'service': service,
+                'vehicles': vehicles,
+                'dealerships': dealerships,
+                'advisors': advisors
+            }
+        )
+
+
 def log(request):
     # Set up pagination
     p = Paginator(Service.objects.order_by('-service_date'), 5)
