@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'portfolio.apps.PortfolioConfig',
     'automotive.apps.AutomotiveConfig',
+    'residential.apps.ResidentialConfig',
     'widget_tweaks',
 ]
 
