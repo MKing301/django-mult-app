@@ -40,6 +40,37 @@ def add_task(request):
     )
 
 
+def edit_task(request, id):
+    task = Task.objects.get(id=id)
+
+    vendors = Vendor.objects.exclude(
+        id=task.pk).order_by('name')
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Your task record was updted successfully!'
+            )
+            return redirect('residential:task_log')
+
+    else:
+        form = TaskForm(instance=task)
+
+        return render(
+            request=request,
+            template_name='residential/edit_task.html',
+            context={
+                'form': form,
+                'task': task,
+                'vendors': vendors
+            }
+        )
+
+
 def task_log(request):
     # Set up pagination
     p = Paginator(Task.objects.order_by('-task_date'), 5)
