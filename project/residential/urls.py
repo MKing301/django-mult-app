@@ -6,4 +6,5 @@ app_name = "residential"
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('task_log/', views.task_log, name="task_log"),
 ]
