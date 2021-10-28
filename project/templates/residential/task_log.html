@@ -1,0 +1,97 @@
+{% extends 'residential/residential_base.html' %}
+{% block title %}Residential Log{% endblock %}
+{% block body %}
+{% load static %}
+    <div class="container-fluid">
+      <header class="page-heading">
+          <h1>Residential Log</h1>
+      </header>
+      <hr>
+        <table class="table table-striped table-responsive-sm table-bordered">
+        	<tr>
+        		<th class="fit">ID</th>
+    			<th class="fit">Task Date</th>
+        		<th class="fit">Task Name</th>
+        		<th class="fit">Vendor</th>
+        		<th class="fit">Vendor Rep</th>
+        		<th class="fit">Contact Number</th>
+        		<th class="fit">Documentation</th>
+    			<th class="fit">Cost</th>
+    			<th class="fit">Notes</th>
+                <th class="fit">Edit</th>
+        	</tr>
+        	{% for task in tasks %}
+        		<tr>
+        			<td class="fit">{{task.id}}</td>
+    				<td class="fit">{{task.task_date}}</td>
+            			<td class="fit">{{task.name}}</td>
+            			<td class="fit">{{task.vendor}}</td>
+            			<td class="fit">{{task.vendor_rep}}</td>
+            			<td class="fit">{{task.contact_num}}</td>
+                        {% if task.documentation %}
+        				    <td class="fit">
+                                <a href="{{task.documentation}}" target="_blank">
+                                    View
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="fit">
+                                <p>
+                                    No File
+                                </p>
+                            </td>
+                        {% endif %}
+        				<td class="fit" id="task_cost">${{task.cost|floatformat:2}}</td>
+        				<td class="fit">{{task.notes}}</td>
+                        <td class="fit">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
+        		</tr>
+        	{% endfor %}
+        </table>
+        <br>
+        <nav aria-label="Page navigation">
+          <ul class="pagination  pagination-sm">
+
+              {% if tasks.has_previous %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">
+                        &laquo First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ tasks.previous_page_number }}">
+                        Previous
+                    </a>
+                </li>
+
+              {% endif %}
+
+              <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                      Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}
+                  </a>
+              </li>
+
+              {% if tasks.has_next %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ tasks.next_page_number }}">
+                        Next
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ tasks.paginator.num_pages }}">
+                        Last &raquo
+                    </a>
+                </li>
+
+              {% endif %}
+
+          </ul>
+        </nav>
+    <div>
+{% endblock %}
