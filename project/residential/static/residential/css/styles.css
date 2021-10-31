@@ -19,3 +19,8 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto }
+
+    .pagination {
+        justify-content: center;
+    }
+    
