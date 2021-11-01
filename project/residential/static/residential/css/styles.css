@@ -1,13 +1,18 @@
-html {
-    position: relative;
-    min-height: 100%;
-    min-width: 100%;
-  }
-
 body {
     min-width: 100%;
     min-height: 100%;
-    padding-top: 70px;
+}
+
+.page-heading {
+    position: relative;
+    margin-top: 150px;
+}
+
+.alert {
+    position: fixed;
+    width: 98%;
+    margin-top: -75px;
+    z-index: 99;
 }
 
 #longleaf {
@@ -23,4 +28,3 @@ img {
     .pagination {
         justify-content: center;
     }
-    
