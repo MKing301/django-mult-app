@@ -9,6 +9,8 @@ psycopg2 = "*"
 django-widget-tweaks = "*"
 requests = "*"
 coverage = "*"
+django-excel-response = "*"
+six = "*"
 
 [dev-packages]
 
