@@ -13,4 +13,5 @@ urlpatterns = [
         views.edit_task,
         name="edit_task"
     ),
+    path('export_to_excel/', views.export_to_excel, name="export_to_excel"),
 ]
