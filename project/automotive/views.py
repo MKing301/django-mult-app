@@ -1,8 +1,11 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from .models import Service, Vehicle, Dealership, Advisor
 from .forms import ServiceForm
 from django.contrib import messages
 from django.core.paginator import Paginator
+from excel_response import ExcelResponse
 
 
 def index(request):
@@ -91,4 +94,14 @@ def log(request):
         request=request,
         template_name="automotive/log.html",
         context={'services': services}
+    )
+
+
+def export_to_excel(request):
+    services = Service.objects.all()
+    file_date_str = datetime.datetime.now().strftime('%Y%m%d')
+    return ExcelResponse(
+        data=services,
+        output_filename=f'services_{file_date_str}',
+        worksheet_name="services"
     )

@@ -1,8 +1,11 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from .models import Task, Vendor
 from .forms import TaskForm
 from django.contrib import messages
 from django.core.paginator import Paginator
+from excel_response import ExcelResponse
 
 
 def index(request):
@@ -81,4 +84,14 @@ def task_log(request):
         request=request,
         template_name="residential/task_log.html",
         context={'tasks': tasks}
+    )
+
+
+def export_to_excel(request):
+    tasks = Task.objects.all()
+    file_date_str = datetime.datetime.now().strftime('%Y%m%d')
+    return ExcelResponse(
+        data=tasks,
+        output_filename=f'tasks_{file_date_str}',
+        worksheet_name="tasks"
     )
