@@ -88,7 +88,18 @@ def task_log(request):
 
 
 def export_to_excel(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.all().values(
+        'id',
+        'task_date',
+        'name',
+        'vendor__name',
+        'vendor_rep',
+        'contact_num',
+        'documentation',
+        'cost',
+        'notes'
+    )
+
     file_date_str = datetime.datetime.now().strftime('%Y%m%d')
     return ExcelResponse(
         data=tasks,
