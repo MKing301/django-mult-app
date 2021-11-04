@@ -98,7 +98,20 @@ def log(request):
 
 
 def export_to_excel(request):
-    services = Service.objects.all()
+    services = Service.objects.all().values(
+        'id',
+        'service_date',
+        'link',
+        'make__make',
+        'make__model',
+        'dealership__name',
+        'work_performed',
+        'service_advisor__first_name',
+        'service_advisor__last_name',
+        'mileage',
+        'cost',
+        'comments'
+    )
     file_date_str = datetime.datetime.now().strftime('%Y%m%d')
     return ExcelResponse(
         data=services,
