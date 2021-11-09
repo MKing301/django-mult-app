@@ -22,6 +22,30 @@ class ServiceForm(forms.ModelForm):
             'inserted_date'
         ]
 
+    def clean_make(self):
+        make = self.cleaned_data.get('make')
+        if make is None:
+            raise forms.ValidationError(
+                'Please select a make from the dropdown!'
+            )
+        return make
+
+    def clean_dealership(self):
+        dealership = self.cleaned_data.get('dealership')
+        if dealership is None:
+            raise forms.ValidationError(
+                'Please select a dealership from the dropdown!'
+            )
+        return dealership
+
+    def clean_service_advisor(self):
+        service_advisor = self.cleaned_data.get('service_advisor')
+        if service_advisor is None:
+            raise forms.ValidationError(
+                'Please select a service advisor from the dropdown!'
+            )
+        return service_advisor
+
     def save(self, commit=True):
         service = super(ServiceForm, self).save(commit=False)
         service_date = self.cleaned_data['service_date']
