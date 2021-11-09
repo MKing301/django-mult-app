@@ -29,7 +29,7 @@ def add_service(request):
             return redirect('automotive:log')
 
         else:
-            messages.error(request, 'An error occurred!')
+            messages.error(request, form.errors)
             return redirect('automotive:add_service')
 
     else:
