@@ -41,3 +41,7 @@ label {
 #service_cost {
     text-align: right;
 }
+
+.err {
+    color: red;
+}
