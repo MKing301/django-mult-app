@@ -78,6 +78,20 @@
                         </select>
                     </div>
                     </div>  <!-- end row -->
+                    {% if form.make.errors or form.dealership.errors %}
+                    <div class="row">
+                        <div class="col-sm-6 err">
+                            {% for error in form.make.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6 err">
+                            {% for error in form.dealership.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                        </div>
+                    </div>  <!-- end row -->
+                    {% endif %}
                     <div class="row">
                         <div class="col-sm-12">
                             <label for="work_performed">Work Performed:</label>
@@ -86,11 +100,19 @@
                                 id="work_performed"
                                 name="work_performed"
                                 row="10"
-                                required="true"
                             >
                             </textarea>
                         </div>
                         </div>  <!-- end row -->
+                        {% if form.work_performed.errors %}
+                        <div class="row">
+                            <div class="col-sm-12 err">
+                                {% for error in form.work_performed.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            </div>
+                        </div>  <!-- end row -->
+                        {% endif %}
                         <div class="row">
                             <div class="col-sm-6">
                                     <label for="service_advisor">Service Advisor:</label>
@@ -138,6 +160,15 @@
                                 </div>
                             </div>
                         </div>  <!-- end row -->
+                        {% if form.service_advisor.errors %}
+                        <div class="row">
+                            <div class="col-sm-6 err">
+                                {% for error in form.service_advisor.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            </div>
+                        </div>  <!-- end row -->
+                        {% endif %}
                         <div class="row">
                         <div class="col-sm-12">
                             <label for="comments">Comments:</label>
