@@ -29,8 +29,13 @@ def add_service(request):
             return redirect('automotive:log')
 
         else:
-            messages.error(request, form.errors)
-            return redirect('automotive:add_service')
+            return render(
+                request=request,
+                template_name='automotive/add_service.html',
+                context={
+                    'form': form
+                }
+            )
 
     else:
         form = ServiceForm()
