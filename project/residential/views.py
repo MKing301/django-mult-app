@@ -27,8 +27,14 @@ def add_task(request):
             return redirect('residential:task_log')
 
         else:
-            messages.error(request, 'An error occurred!')
-            return redirect('residential:add_task')
+            return render(
+                request=request,
+                template_name='residential/add_task.html',
+                context={
+                    'form': form,
+                    'vendors': vendors
+                }
+            )
 
     else:
         form = TaskForm()
