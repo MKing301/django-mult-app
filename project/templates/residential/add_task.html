@@ -64,6 +64,20 @@
                         />
                 </div>
             </div>  <!-- end row -->
+            {% if form.vendor.errors or form.name.errors %}
+            <div class="row">
+                <div class="col-sm-6 err">
+                    {% for error in form.vendor.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </div>
+                <div class="col-sm-6 err">
+                    {% for error in form.name.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </div>
+            </div>  <!-- end row -->
+            {% endif %}
             <div class="row">
                 <div class="col-sm-4">
                         <label for="vendor_rep">Vendor Rep:</label>
