@@ -28,3 +28,7 @@ img {
     .pagination {
         justify-content: center;
     }
+
+    .err {
+        color: red;
+    }
