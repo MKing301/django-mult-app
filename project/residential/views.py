@@ -82,7 +82,7 @@ def edit_task(request, id):
 
 def task_log(request):
     # Set up pagination
-    p = Paginator(Task.objects.order_by('-task_date'), 5)
+    p = Paginator(Task.objects.order_by('-task_date'), 10)
     page = request.GET.get('page')
     tasks = p.get_page(page)
 

@@ -91,7 +91,7 @@ def edit_service(request, id):
 
 def log(request):
     # Set up pagination
-    p = Paginator(Service.objects.order_by('-service_date'), 5)
+    p = Paginator(Service.objects.order_by('-service_date'), 10)
     page = request.GET.get('page')
     services = p.get_page(page)
 
