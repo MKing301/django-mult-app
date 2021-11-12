@@ -16,6 +16,14 @@ class TaskForm(forms.ModelForm):
             'notes',
         ]
 
+    def clean_vendor(self):
+        vendor = self.cleaned_data.get('vendor')
+        if vendor is None:
+            raise forms.ValidationError(
+                'Please select a vendor from the dropdown!'
+            )
+        return vendor
+
     def save(self, commit=True):
         task = super(TaskForm, self).save(commit=False)
         task_date = self.cleaned_data['task_date']
