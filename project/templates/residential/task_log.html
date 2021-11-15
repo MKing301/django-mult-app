@@ -10,8 +10,21 @@
       <div class="row">
           <div class="col-sm-3">
               <a href="{% url 'residential:export_to_excel' %}" class="btn btn-dark btn-sm">
-                  Export to Excel
+                  Export Full Log to Excel
               </a>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+          <div class="col-sm-12">
+              <a href="{% url 'residential:task_log' %}" class="btn btn-primary btn-sm">
+                  Full Log
+              </a>
+              {% for vendor in vendors %}
+              <a href="{% url 'residential:filter'  vendor.id %}" class="btn btn-primary btn-sm">
+                  Filter by {{vendor.name}}
+              </a>
+              {% endfor %}
           </div>
       </div>
       <br />
@@ -52,7 +65,7 @@
         				<td class="fit" id="task_cost">${{task.cost|floatformat:2}}</td>
         				<td class="fit">{{task.notes}}</td>
                         <td class="fit">
-                            <a href="edit_task/{{task.id}}" class="btn btn-primary btn-sm">
+                            <a href="{% url 'residential:edit_task' task.id%}" class="btn btn-primary btn-sm">
                                 Edit
                             </a>
                         </td>
@@ -101,5 +114,5 @@
 
           </ul>
         </nav>
-    <div>
+    </div>
 {% endblock %}
