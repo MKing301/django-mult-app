@@ -86,10 +86,33 @@ def task_log(request):
     page = request.GET.get('page')
     tasks = p.get_page(page)
 
+    vendors = Vendor.objects.all()
+
     return render(
         request=request,
         template_name="residential/task_log.html",
-        context={'tasks': tasks}
+        context={
+            'tasks': tasks,
+            'vendors': vendors
+        }
+    )
+
+
+def filter(request, id):
+    # Set up pagination
+    p = Paginator(Task.objects.filter(vendor=id).order_by('-task_date'), 10)
+    page = request.GET.get('page')
+    tasks = p.get_page(page)
+
+    vendors = Vendor.objects.all()
+
+    return render(
+        request=request,
+        template_name="residential/task_log.html",
+        context={
+            'tasks': tasks,
+            'vendors': vendors
+        }
     )
 
 
