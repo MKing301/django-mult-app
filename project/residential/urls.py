@@ -14,4 +14,5 @@ urlpatterns = [
         name="edit_task"
     ),
     path('export_to_excel/', views.export_to_excel, name="export_to_excel"),
+    path('filter/<int:id>', views.filter, name="filter"),
 ]
