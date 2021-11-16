@@ -21,7 +21,7 @@
                   Full Log
               </a>
               {% for vendor in vendors %}
-              <a href="{% url 'residential:filter'  vendor.id %}" class="btn btn-primary btn-sm">
+              <a href="{% url 'residential:filter'  vendor.id %}" class="btn btn-primary btn-sm filter">
                   Filter by {{vendor.name}}
               </a>
               {% endfor %}
