@@ -29,6 +29,10 @@ img {
         justify-content: center;
     }
 
-    .err {
+.err {
         color: red;
     }
+
+.filter {
+    margin: 1px;
+}
