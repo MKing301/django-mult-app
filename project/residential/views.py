@@ -86,7 +86,7 @@ def task_log(request):
     page = request.GET.get('page')
     tasks = p.get_page(page)
 
-    vendors = Vendor.objects.all()
+    vendors = Vendor.objects.order_by('name')
 
     return render(
         request=request,
