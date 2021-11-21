@@ -103,7 +103,7 @@ h1 {
         display: grid;
         grid-auto-columns: auto;
         grid-auto-rows: auto;
-        grid-template-areas: 
+        grid-template-areas:
             'header header'
             'language language'
             'framework framework'
@@ -187,8 +187,10 @@ margin-top: 25px;
 }
 
 .alert {
+    position: fixed;
     width: 98%;
-    margin-top: 60px;
+    margin-top: 50px;
+    z-index: 9999;
 }
 
 #loader.visible {
