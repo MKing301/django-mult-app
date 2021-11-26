@@ -14,6 +14,36 @@
               </a>
           </div>
       </div>
+      <hr>
+      <form>
+          <div class="form-group row">
+              <label for="car" class="col-sm-2 col-form-label">Filter by Vehicle</label>
+              <div class="col-sm-3 select-update">
+                  <select
+                      class="form-control form-control-sm"
+                      id="car"
+                      name="car"
+                      onchange="location = this.value;"
+                  >
+                      <option
+                      selected="true"
+                      value="Select a Vehicle"
+                      disabled
+                      >
+                          Select a Vehicle
+                      </option>
+                      <option value="{% url 'automotive:log' %}">
+                          All Vehicles
+                      </option>
+                      {% for vehicle in vehicles %}
+                          <option value="{% url 'automotive:vehicle_filter'  vehicle.id %}">
+                                {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
+                          </option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+        </form>
       <br />
         <table class="table table-striped table-responsive-sm table-bordered">
         	<tr>
