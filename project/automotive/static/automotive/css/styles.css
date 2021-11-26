@@ -45,3 +45,20 @@ label {
 .err {
     color: red;
 }
+
+.filter {
+    margin: 1px;
+}
+
+.col-form-label {
+    color: blue;
+    font-weight: bold;
+}
+
+.select-update {
+    padding-left: 0;
+}
+
+.col-form-label {
+    padding-right: 0;
+}
