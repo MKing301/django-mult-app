@@ -14,4 +14,9 @@ urlpatterns = [
         name="edit_service"
     ),
     path('export_to_excel/', views.export_to_excel, name="export_to_excel"),
+    path(
+        'vehicle_filter/<int:id>',
+        views.vehicle_filter,
+        name="vehicle_filter"
+    ),
 ]
