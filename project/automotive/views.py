@@ -89,16 +89,42 @@ def edit_service(request, id):
         )
 
 
+def vehicle_filter(request, id):
+    # Set up pagination
+    p = Paginator(
+        Service.objects.filter(make_id=id).order_by('-service_date'),
+        10
+    )
+    page = request.GET.get('page')
+    services = p.get_page(page)
+
+    vehicles = Vehicle.objects.all()
+
+    return render(
+        request=request,
+        template_name="automotive/log.html",
+        context={
+            'services': services,
+            'vehicles': vehicles
+        }
+    )
+
+
 def log(request):
     # Set up pagination
     p = Paginator(Service.objects.order_by('-service_date'), 10)
     page = request.GET.get('page')
     services = p.get_page(page)
 
+    vehicles = Vehicle.objects.all()
+
     return render(
         request=request,
         template_name="automotive/log.html",
-        context={'services': services}
+        context={
+            'services': services,
+            'vehicles': vehicles
+        }
     )
 
 
@@ -107,6 +133,7 @@ def export_to_excel(request):
         'id',
         'service_date',
         'link',
+        'make__year',
         'make__make',
         'make__model',
         'dealership__name',
