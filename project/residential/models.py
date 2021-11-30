@@ -47,4 +47,4 @@ class Task(models.Model):
         Represent task class object as a string consisting of the
         task's name.
         """
-        return str(self.name)
+        return self.name
