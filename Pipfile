@@ -11,6 +11,9 @@ requests = "*"
 coverage = "*"
 django-excel-response = "*"
 six = "*"
+pip = "*"
+install = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

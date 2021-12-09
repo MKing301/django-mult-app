@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 
+from dotenv import load_dotenv
 from pathlib import Path
 from django.contrib.messages import constants as messages
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-of_ec3555$rf5x)^8!f=7#9y_(iz8rl@+6_f6@&@vm+r&zhx%f'
+SECRET_KEY = os.environ.get('SECRET_KEY_MULT')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,9 +85,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projectdb',  # Use env var for production
-        'USER': 'postgres',  # Use env var for production
-        'PASSWORD': 'postgres',  # Use env var for production
+        'NAME': os.getenv('DB_NAME_MULT'),
+        'USER': os.getenv('DB_USER_MULT'),
+        'PASSWORD': os.getenv('DB_PASSWORD_MULT'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
