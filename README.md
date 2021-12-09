@@ -16,7 +16,7 @@ This project contains the following apps:
 * [Django](https://www.djangoproject.com/)
 * [SQLAlchemy - PostgreSQL](http://docs.sqlalchemy.org/en/latest/dialects/postgresql.html)
 * [reCAPTCHA](https://www.google.com/recaptcha/about/)
-* [Environment Variables](https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/)
+* [Environment Variables](https://dev.to/vladyslavnua/how-to-protect-your-django-secret-and-oauth-keys-53fl)
 * [Clone an exising Git repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
 
 ## Prerequisite
