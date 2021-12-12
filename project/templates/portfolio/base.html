@@ -11,6 +11,9 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Favicon.ico -->
 	  <link rel= "shortcut icon" href= "{% static 'portfolio/img/favicon.ico' %}">
 
@@ -60,6 +63,7 @@
       {% include "portfolio/includes/_messages.html" %}
       {% block content %}
       {% endblock %}
+      {% include "portfolio/includes/_footer.html" %}
     </div> <!-- End container-fluid class-->
 
     <script type="text/Javascript">
