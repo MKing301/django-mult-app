@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +33,9 @@
       crossorigin="anonymous"
     ></script>
 
-    {% load static %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'automotive/img/favicon.ico' %}" >
+
     <link rel="stylesheet" href="{% static 'automotive/css/styles.css' %}">
 
   <title>
