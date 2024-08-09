@@ -6,6 +6,8 @@ app_name = "automotive"
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path("accounts/login/", views.login_request, name="login_request"),
+    path("accounts/logout/", views.logout_request, name="logout_request"),
     path('log/', views.log, name="log"),
     path('add_service/', views.add_service, name="add_service"),
     path(
