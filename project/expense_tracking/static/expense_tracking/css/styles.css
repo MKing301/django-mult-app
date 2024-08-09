@@ -1,0 +1,57 @@
+body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.background-home {
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center center;
+    margin: -15px -15px;
+    position: absolute;
+    text-align: center;
+}
+
+main {
+  margin-top: 75px;
+  margin-bottom: 50px;
+}
+
+legend {
+    font-weight: bold;
+    color: rgb(21, 10, 173);
+}
+
+label {
+    font-weight: bold;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.alert {
+    margin-top: 75px;
+}
+
+.errorlist {
+  margin-top: 75px;
+  color: red;
+  font-weight: bold;
+}
+
+.table td.fit,
+.table th.fit {
+  white-space:nowrap;
+  width: 1%;
+  text-align: center;
+}
+
+.pagination {
+    justify-content:center;
+}
+
+.no_records{
+  color: red;
+}
