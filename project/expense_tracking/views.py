@@ -396,7 +396,7 @@ def get_data(request):
                 # Using as_index=False set the index
                 grouped_df= filtered_df.groupby('expense_type__name', as_index=False)['amount'].sum()
 
-                grouped_df.columns = ['Expense Type', 'Amount']
+                grouped_df.columns = ['Category', 'Amount']
 
                 if len(grouped_df.index) == 0:
                     return render(
@@ -410,7 +410,7 @@ def get_data(request):
                     )
                 else:
                     trace = go.Bar(
-                        x=grouped_df['Expense Type'],
+                        x=grouped_df['Category'],
                         y=grouped_df['Amount']
                     )
 
@@ -420,7 +420,7 @@ def get_data(request):
                         },
                         title_x=.5,
                         xaxis={
-                            'title': '<b>Expense Type</b>'
+                            'title': '<b>Category</b>'
                         },
                         yaxis={
                             'title': '<b>Amount (in dollars)</b>'
