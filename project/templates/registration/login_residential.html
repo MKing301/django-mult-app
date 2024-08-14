@@ -1,0 +1,18 @@
+{% extends 'residential/residential_base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% load static %}
+ <div class="container-fluid"> 
+ <header class="page-heading">
+   <h1>Residential Login</h1>
+ </header>
+ <hr>
+ <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+ {% csrf_token %}
+ <fieldset class="form-group">
+   {{ form|crispy}}
+ </fieldset>
+ </form>
+ </div>
+{% endblock %}
+
