@@ -1,0 +1,228 @@
+body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.background-home {
+    min-width: 100%;
+    min-height: 100%;
+    background-image: url('/static/portfolio/img/code.jpg');
+    background-size: cover;
+    margin: -15px -15px;
+    position: absolute;
+    text-align: center;
+}
+
+.jumbotron {
+    position: relative;
+	display: inline-block;
+	margin-top: 150px;
+}
+
+@media only screen and (max-width: 768px) {
+    #jumbotron-title {
+        font-size: 2.0rem;
+        font: bold;
+    }
+}
+
+h1 {
+    color: purple;
+}
+
+.page-heading {
+    position: relative;
+    margin-top: 100px;
+  }
+
+.page-content {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.header {
+    grid-area: header;
+    padding: 20px;
+}
+
+.language {
+    grid-area: language;
+    background-color: aqua;
+    padding: 20px;
+}
+
+.framework {
+    grid-area: framework;
+    background-color: greenyellow;
+    padding: 20px;
+}
+
+.version {
+    grid-area: version;
+    background-color: rgb(0, 162, 255);
+    padding: 20px;
+}
+
+.markup {
+    grid-area: markup;
+    background-color: orange;
+    padding: 20px;
+}
+
+.database {
+    grid-area: database;
+    background-color:rgb(214, 214, 226);
+    padding: 20px;
+}
+
+.agile {
+    grid-area: agile;
+    background-color: burlywood;
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-template-areas:
+        'header header header header header header'
+        'language language framework framework version version'
+        'markup markup database database agile agile';
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.grid-container > div {
+    text-align: left;
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container {
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-rows: auto;
+        grid-template-areas:
+            'header header'
+            'language language'
+            'framework framework'
+            'version version'
+            'markup markup'
+            'database database'
+            'agile agile';
+        grid-gap: 10px;
+    }
+    .grid-container > div {
+        text-align: left;
+        border-radius: 25px;
+        }
+}
+
+.cell-header-title {
+    font-size: 25px;
+}
+
+.cell-header-content {
+    font-size: 23px;
+}
+
+.cell-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cell-content {
+    font-size: 23px;
+}
+
+#name, #title {
+    color: blue;
+}
+
+.container-image {
+    position: relative;
+    padding: 40px;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .container-image:hover .image {
+    opacity: 0.3;
+  }
+
+  .container-image:hover .middle {
+    opacity: 1;
+  }
+
+.text {
+    background-color:#42F4D1;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 32px;
+  }
+
+label {
+font-weight: bold;
+margin-top: 25px;
+}
+
+.alert {
+    position: fixed;
+    width: 98%;
+    margin-top: 50px;
+    z-index: 9999;
+}
+
+#loader.visible {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loader.hidden {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+footer {
+	height: 40px;
+	font-weight: bold;
+    font-size: 24px;
+    padding-left: 20px;
+}

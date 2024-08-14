@@ -1,0 +1,51 @@
+body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.page-heading {
+    position: relative;
+    margin-top: 150px;
+}
+
+.alert {
+    position: fixed;
+    width: 98%;
+    margin-top: -75px;
+    z-index: 99;
+}
+
+#longleaf {
+    grid-area: framework;
+    padding: 20px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+
+    .pagination {
+        justify-content: center;
+    }
+
+    .err {
+        color: red;
+    }
+
+.filter {
+    margin: 1px;
+}
+
+.col-form-label {
+    color: blue;
+    font-weight: bold;
+}
+
+.select-update {
+    padding-left: 0;
+}
+
+.col-form-label {
+    padding-right: 0;
+}
