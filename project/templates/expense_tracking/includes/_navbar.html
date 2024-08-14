@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="{% url 'expense_tracking:index' %}">Expense Tracking</a>
+    <button
+      class="navbar-toggler"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbar"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ms-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a
+              href="{% url 'expense_tracking:add_expense' %}"
+              class="nav-link"
+            >
+              Add Expense
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              href="{% url 'expense_tracking:expenses' %}"
+              class="nav-link"
+            >
+              Expenses
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              href="{% url 'expense_tracking:get_data' %}"
+              class="nav-link"
+            >
+              Data Visualization
+            </a>
+          </li>
+          <li class="nav-item"><a href="{% url 'expense_tracking:logout_request' %}" class="nav-link">Logout</a></li>
+          <li class="nav-item"><a href="#"  class="nav-link disabled">Logged in as {{ user.username}}</a></li>
+          {% else %}
+          <li class="nav-item"><a href="{% url 'expense_tracking:login_request' %}" class="nav-link">Login</a></li>
+          {% endif %}
+        </ul>
+    </div>
+</nav>

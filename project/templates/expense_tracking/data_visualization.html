@@ -1,0 +1,53 @@
+{% extends 'expense_tracking/layout.html' %}
+{% load static %}
+{% block title %}Data{% endblock %}
+{%block body %}
+<div class="container">
+<main>
+    <legend class="border-bottom mb4">
+        Expense Data
+    </legend>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <p>
+              Select a start and end date to display your expenses within
+              the specified range.
+          </p>
+          <div class="row">
+            <div class="col-sm-3">
+              <label for="start_date">Start Date</label>
+              <input
+                  type="date"
+                  class="form-control form-control-sm"
+                  data-date-format="mm/dd/yyyy"
+                  id="start_date"
+                  name="start_date"
+                  required="false"
+              />
+            </div>
+            <div class="col-sm-3">
+              <label for="end_date">End Date</label>
+              <input
+                  type="date"
+                  class="form-control form-control-sm"
+                  data-date-format="mm/dd/yyyy"
+                  id="end_date"
+                  name="end_date"
+                  required="false"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+                <button class="btn btn-sm btn-primary" type="submit">Load Data</button>
+            </div>
+        </div>
+    </form>
+    {{ sum_2021|safe }}
+    {% autoescape off %}
+    {{ plt_div }}
+    {% endautoescape %}
+</main>
+</div>
+{% endblock %}
