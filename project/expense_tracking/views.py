@@ -519,18 +519,62 @@ def budget(request):
 
     budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance']
 
-    return render(
-        request=request,
-        template_name='expense_tracking/budget.html',
-        context={
-            'current_month_display_name': current_month_display_name,
-            'current_year': current_year,
-            'budget': build_table(
-                                budget, 'blue_light'
-                            ),
-        }
-    )
+    if len(budget.index) == 0:
+                    return render(
+                        request=request,
+                        template_name='expense_tracking/budget.html',
+                        context={
+                            'current_month_display_name': current_month_display_name,
+                            'current_year': current_year,
+                            'none': 'No records found!',
+                        }
+                    )
+    else:
+        trace1 = go.Bar(
+            x=budget['Category'],
+            y=budget['Total Monthly Balance'],
+            name='Budget',
+            text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Total Monthly Balance'])],
+            textposition='auto',
+            showlegend=True
+        )
 
+        trace2 = go.Bar(
+            x=budget['Category'],
+            y=budget['Monthly Expense Amount'],
+            name='Expense',
+            text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Monthly Expense Amount'])],
+            textposition='auto',
+            showlegend=True
+        )
+
+        layout = go.Layout(
+            title={
+                'text': f'<b>{current_month_display_name} {current_year} Monthly Budget</b>',
+            },
+            title_x=.5,
+            xaxis={
+                'title': '<b>Category</b>'
+            },
+            yaxis={
+                'title': '<b>Amount (in dollars)</b>'
+            },
+            barmode='group'
+        )
+        fig = go.Figure(data=[trace1, trace2], layout=layout)
+        plt_div = plot(fig, output_type='div')
+        return render(
+            request=request,
+            template_name='expense_tracking/budget.html',
+            context={
+                'current_month_display_name': current_month_display_name,
+                'current_year': current_year,
+                'budget': build_table(
+                                    budget, 'blue_light'
+                                ),
+                'plt_div': plt_div
+            }
+        )
 
 @ login_required
 def results(request):
