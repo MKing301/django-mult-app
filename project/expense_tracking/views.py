@@ -4,7 +4,7 @@ import plotly.graph_objs as go
 import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import Expense, ExpenseType
+from .models import Expense, ExpenseType, Budget
 from .forms import (
     ExpenseForm,
     DateRangeForm
@@ -460,6 +460,74 @@ def get_data(request):
         template_name='expense_tracking/get_data.html',
         context={
             'form': form
+        }
+    )
+
+
+@login_required
+def budget(request):
+
+    current = timezone.now()
+    current_month_display_name = current.strftime('%b')
+    current_month = current.month
+    current_year = current.year
+
+    df = pd.DataFrame(list(
+                    Expense.objects.all().values(
+                        'expense_date',
+                        'expense_type__name',
+                        'name',
+                        'org',
+                        'amount',
+                        'inserted_date'
+                    ).filter(
+                        expense_date__year=current_year,
+                        expense_date__month=current_month
+                        )
+                    )
+                )
+
+    # Using as_index=False set the index
+    tracking= df.groupby('expense_type__name', as_index=False)['amount'].sum()
+
+    tracking.columns = ['Expense Type', 'Amount']
+
+    budget =  pd.DataFrame(list(
+                    Budget.objects.all().values(
+                        'name',
+                        'beginning_bal',
+                        'budget_amt',
+                        'total_monthly_bal',
+                        'expense_amt',
+                        'current_bal'
+                    )))
+
+    budget['total_monthly_bal'] = budget['beginning_bal'] + budget['budget_amt']
+
+    # Merge budget and tracking DataFrames on the matching columns
+    merged = pd.merge(budget, tracking, left_on='name', right_on='Expense Type', how='left', suffixes=('', '_tracking'))
+
+
+    # Update the amount column in budget DataFrame with values from tracking DataFrame
+    budget['expense_amt'] = merged['Amount'].combine_first(merged['expense_amt'])
+
+    # Replace None with 0
+    budget = budget.fillna(0)
+
+
+    budget['current_bal'] = budget['total_monthly_bal'].astype(float) - budget['expense_amt'].astype(float)
+
+    budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance']
+
+    return render(
+        request=request,
+        template_name='expense_tracking/budget.html',
+        context={
+            'current_month_display_name': current_month_display_name,
+            'current_year': current_year,
+            'budget': build_table(
+                                budget, 'blue_light'
+                            ),
         }
     )
 
