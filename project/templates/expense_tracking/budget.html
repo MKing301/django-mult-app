@@ -1,0 +1,14 @@
+{% extends 'expense_tracking/layout.html' %}
+{% load static %}
+{% block title %}Monthly Budget{% endblock %}
+{%block body %}
+<div class="container">
+<main>
+    <legend class="border-bottom mb4">
+        {{current_month_display_name}} {{current_year}} Budget
+    </legend>
+        {{ budget|safe }}
+</main>
+</div>
+{% endblock %}
+
