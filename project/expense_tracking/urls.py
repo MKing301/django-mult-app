@@ -24,6 +24,7 @@ urlpatterns = [
         views.get_data,
         name='get_data'
     ),
+    path('budget', views.budget, name="budget"),
     path(
         "results/",
         views.results,
