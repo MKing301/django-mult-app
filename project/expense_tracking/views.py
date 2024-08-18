@@ -534,7 +534,8 @@ def budget(request):
             x=budget['Category'],
             y=budget['Total Monthly Balance'],
             name='Budget',
-            text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Total Monthly Balance'])],
+            hovertemplate='%{y}',  # Display only the value on hover
+            # text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Total Monthly Balance'])],
             textposition='auto',
             showlegend=True
         )
@@ -543,7 +544,8 @@ def budget(request):
             x=budget['Category'],
             y=budget['Monthly Expense Amount'],
             name='Expense',
-            text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Monthly Expense Amount'])],
+            hovertemplate='%{y}',  # Display only the value on hover
+            # text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Monthly Expense Amount'])],
             textposition='auto',
             showlegend=True
         )
