@@ -1,5 +1,6 @@
 import pandas as pd
 import pandasql as ps
+import numpy as np
 import plotly.graph_objs as go
 import logging
 from django.shortcuts import render, redirect
@@ -502,6 +503,8 @@ def budget(request):
                         'current_bal'
                     )))
 
+    budget['beginning_bal'] = budget['beginning_bal'].astype(float)
+    budget['budget_amt'] = budget['budget_amt'].astype(float)
     budget['total_monthly_bal'] = budget['beginning_bal'] + budget['budget_amt']
 
     # Merge budget and tracking DataFrames on the matching columns
@@ -509,15 +512,30 @@ def budget(request):
 
 
     # Update the amount column in budget DataFrame with values from tracking DataFrame
-    budget['expense_amt'] = merged['Amount'].combine_first(merged['expense_amt'])
+    budget['expense_amt'] = merged['Amount'].combine_first(merged['expense_amt']).astype(float)
 
     # Replace None with 0
     budget = budget.fillna(0)
 
-
+    budget['rounded_expense_amt'] = np.ceil(budget['expense_amt'].astype(float))
     budget['current_bal'] = budget['total_monthly_bal'].astype(float) - budget['expense_amt'].astype(float)
 
-    budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance']
+    # Rename columns
+    budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance',  'Rounded Monthly Expense Amount']
+
+    # Re-order colums
+    budget = budget[['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Rounded Monthly Expense Amount', 'Current Monthly Balance']]
+
+
+    # Calculate the sum of numeric columns
+    numeric_sum = budget.select_dtypes(include='number').sum()
+
+    # Convert the numeric sums to a DataFrame with the same columns
+    sum_row = pd.DataFrame(numeric_sum).transpose()
+    sum_row['Category'] = 'Totals'
+
+    # Append the sum row to the original DataFrame
+    df = pd.concat([budget, sum_row], ignore_index=True)
 
     if len(budget.index) == 0:
                     return render(
@@ -572,7 +590,7 @@ def budget(request):
                 'current_month_display_name': current_month_display_name,
                 'current_year': current_year,
                 'budget': build_table(
-                                    budget, 'blue_light'
+                                    df, 'blue_light'
                                 ),
                 'plt_div': plt_div
             }
