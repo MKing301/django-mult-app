@@ -3,6 +3,7 @@ import pandasql as ps
 import numpy as np
 import plotly.graph_objs as go
 import logging
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import Expense, ExpenseType, Budget
@@ -23,6 +24,7 @@ from rest_framework import viewsets
 from .serializers import ExpenseTypeSerializer
 from pretty_html_table import build_table
 from django.utils import timezone
+from pytz import timezone as pytz_timezone
 from plotly.offline import plot
 
 
@@ -39,6 +41,50 @@ class ExpenseTypeView(viewsets.ModelViewSet):
 
     # Serialize class
     serializer_class = ExpenseTypeSerializer
+
+
+def get_chart(category, title):
+
+    df = category
+    trace1 = go.Bar(
+                x=df['Category'],
+                y=df['Budget Amount'],
+                name='Budget',
+                hovertemplate='%{y}',  # Display only the value on hover
+                #text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Total Monthly Balance'])],
+                textposition='auto',
+                showlegend=True
+            )
+
+    trace2 = go.Bar(
+        x=df['Category'],
+        y=df['Monthly Expense Amount'],
+        name='Expense',
+        hovertemplate='%{y}',  # Display only the value on hover
+        # text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Monthly Expense Amount'])],
+        textposition='auto',
+        showlegend=True
+    )
+
+    layout = go.Layout(
+        title={
+            'text': f'<b>{title} Monthly Budget</b>',
+        },
+        title_x=.5,
+        xaxis={
+            'title': '<b>Category</b>'
+        },
+        yaxis={
+            'title': '<b>Amount (in dollars)</b>'
+        },
+        barmode='group',
+        height=500,  # Set the height of the chart in pixels
+        plot_bgcolor='rgba(0, 0, 0, 0)',
+        paper_bgcolor='rgba(0, 0, 0, 0)',
+    )
+    fig = go.Figure(data=[trace1, trace2], layout=layout)
+    plt_div = plot(fig, output_type='div')
+    return plt_div
 
 
 def index(request):
@@ -425,7 +471,9 @@ def get_data(request):
                         },
                         yaxis={
                             'title': '<b>Amount (in dollars)</b>'
-                        }
+                        },
+                        plot_bgcolor='rgba(0, 0, 0, 0)',
+                        paper_bgcolor='rgba(0, 0, 0, 0)',
                     )
                     fig = go.Figure(data=trace, layout=layout)
                     plt_div = plot(fig, output_type='div')
@@ -468,10 +516,15 @@ def get_data(request):
 @login_required
 def budget(request):
 
-    current = timezone.now()
-    current_month_display_name = current.strftime('%b')
-    current_month = current.month
-    current_year = current.year
+    now_utc = timezone.now()
+
+    # Convert to Eastern Time
+    eastern_tz = pytz_timezone('America/New_York')
+    now_eastern = now_utc.astimezone(eastern_tz)
+
+    current_month_display_name = now_eastern.strftime('%b')
+    current_month = now_eastern.month
+    current_year = now_eastern.year
 
     df = pd.DataFrame(list(
                     Expense.objects.all().values(
@@ -488,113 +541,144 @@ def budget(request):
                     )
                 )
 
-    # Using as_index=False set the index
-    tracking= df.groupby('expense_type__name', as_index=False)['amount'].sum()
-
-    tracking.columns = ['Expense Type', 'Amount']
-
-    budget =  pd.DataFrame(list(
-                    Budget.objects.all().values(
-                        'name',
-                        'beginning_bal',
-                        'budget_amt',
-                        'total_monthly_bal',
-                        'expense_amt',
-                        'current_bal'
-                    )))
-
-    budget['beginning_bal'] = budget['beginning_bal'].astype(float)
-    budget['budget_amt'] = budget['budget_amt'].astype(float)
-    budget['total_monthly_bal'] = budget['beginning_bal'] + budget['budget_amt']
-
-    # Merge budget and tracking DataFrames on the matching columns
-    merged = pd.merge(budget, tracking, left_on='name', right_on='Expense Type', how='left', suffixes=('', '_tracking'))
-
-
-    # Update the amount column in budget DataFrame with values from tracking DataFrame
-    budget['expense_amt'] = merged['Amount'].combine_first(merged['expense_amt']).astype(float)
-
-    # Replace None with 0
-    budget = budget.fillna(0)
-
-    budget['rounded_expense_amt'] = np.ceil(budget['expense_amt'].astype(float))
-    budget['current_bal'] = budget['total_monthly_bal'].astype(float) - budget['expense_amt'].astype(float)
-
-    # Rename columns
-    budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance',  'Rounded Monthly Expense Amount']
-
-    # Re-order colums
-    budget = budget[['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Rounded Monthly Expense Amount', 'Current Monthly Balance']]
-
-
-    # Calculate the sum of numeric columns
-    numeric_sum = budget.select_dtypes(include='number').sum()
-
-    # Convert the numeric sums to a DataFrame with the same columns
-    sum_row = pd.DataFrame(numeric_sum).transpose()
-    sum_row['Category'] = 'Totals'
-
-    # Append the sum row to the original DataFrame
-    df = pd.concat([budget, sum_row], ignore_index=True)
-
-    if len(budget.index) == 0:
-                    return render(
+    if len(df.index) == 0:
+        return render(
                         request=request,
                         template_name='expense_tracking/budget.html',
                         context={
-                            'current_month_display_name': current_month_display_name,
-                            'current_year': current_year,
-                            'none': 'No records found!',
+                            'none': 'No expense records found for this month!',
                         }
                     )
+
     else:
-        trace1 = go.Bar(
-            x=budget['Category'],
-            y=budget['Total Monthly Balance'],
-            name='Budget',
-            hovertemplate='%{y}',  # Display only the value on hover
-            # text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Total Monthly Balance'])],
-            textposition='auto',
-            showlegend=True
-        )
 
-        trace2 = go.Bar(
-            x=budget['Category'],
-            y=budget['Monthly Expense Amount'],
-            name='Expense',
-            hovertemplate='%{y}',  # Display only the value on hover
-            # text=[f'{cat}: {val}' for cat, val in zip(budget['Category'], budget['Monthly Expense Amount'])],
-            textposition='auto',
-            showlegend=True
-        )
+        # Using as_index=False set the index
+        tracking= df.groupby('expense_type__name', as_index=False)['amount'].sum()
 
-        layout = go.Layout(
-            title={
-                'text': f'<b>{current_month_display_name} {current_year} Monthly Budget</b>',
-            },
-            title_x=.5,
-            xaxis={
-                'title': '<b>Category</b>'
-            },
-            yaxis={
-                'title': '<b>Amount (in dollars)</b>'
-            },
-            barmode='group'
-        )
-        fig = go.Figure(data=[trace1, trace2], layout=layout)
-        plt_div = plot(fig, output_type='div')
-        return render(
-            request=request,
-            template_name='expense_tracking/budget.html',
-            context={
-                'current_month_display_name': current_month_display_name,
-                'current_year': current_year,
-                'budget': build_table(
-                                    df, 'blue_light'
-                                ),
-                'plt_div': plt_div
-            }
-        )
+        tracking.columns = ['Expense Type', 'Amount']
+
+        budget =  pd.DataFrame(list(
+                        Budget.objects.all().values(
+                            'name',
+                            'beginning_bal',
+                            'budget_amt',
+                            'total_monthly_bal',
+                            'expense_amt',
+                            'current_bal'
+                        )))
+
+        budget['beginning_bal'] = budget['beginning_bal'].astype(float)
+        budget['budget_amt'] = budget['budget_amt'].astype(float)
+        budget['total_monthly_bal'] = budget['beginning_bal'] + budget['budget_amt']
+
+        # Merge budget and tracking DataFrames on the matching columns
+        merged = pd.merge(budget, tracking, left_on='name', right_on='Expense Type', how='left', suffixes=('', '_tracking'))
+
+
+        # Update the amount column in budget DataFrame with values from tracking DataFrame
+        budget['expense_amt'] = merged['Amount'].combine_first(merged['expense_amt']).astype(float)
+
+        # Replace None with 0
+        budget = budget.fillna(0)
+
+        budget['rounded_expense_amt'] = np.ceil(budget['expense_amt'].astype(float))
+        budget['current_bal'] = budget['total_monthly_bal'].astype(float) - budget['expense_amt'].astype(float)
+
+        # Rename columns
+        budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance',  'Rounded Monthly Expense Amount']
+
+        # Re-order colums
+        budget = budget[['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Rounded Monthly Expense Amount', 'Current Monthly Balance']]
+
+        # Convert dataframe to dictionary                                                                               
+        budget_dict = budget.to_dict(orient='records')                              
+                                                                                 
+        for data in budget_dict:                                                    
+            Budget.objects.filter(name=data['Category']).update(                    
+                beginning_bal=data['Beginning Balance'],                            
+                total_monthly_bal=data['Total Monthly Balance'],                    
+                expense_amt=data['Monthly Expense Amount'],                         
+                current_bal=data['Current Monthly Balance']                         
+            )    
+
+        # Calculate the sum of numeric columns
+        numeric_sum = budget.select_dtypes(include='number').sum()
+
+        # Convert the numeric sums to a DataFrame with the same columns
+        sum_row = pd.DataFrame(numeric_sum).transpose()
+        sum_row['Category'] = 'Totals'
+
+        # Append the sum row to the original DataFrame
+        df = pd.concat([budget, sum_row], ignore_index=True)
+
+        if len(budget.index) == 0:
+                        return render(
+                            request=request,
+                            template_name='expense_tracking/budget.html',
+                            context={
+                                'current_month_display_name': current_month_display_name,
+                                'current_year': current_year,
+                                'none': 'No records found!',
+                            }
+                        )
+        else:
+
+            food = budget[budget['Category'] == 'Food']
+            gas = budget[budget['Category'] == 'Transportation-Gas']
+            aquasana = budget[budget['Category'] == 'Aquasana']
+            clothing = budget[budget['Category'] == 'Clothing']
+            salon = budget[budget['Category'] == 'Salon']
+            cleaning = budget[budget['Category'] == 'Dry Cleaning']
+            toll = budget[budget['Category'] == 'Transportation-Toll']
+            lawn = budget[budget['Category'] == 'Lawn Care']
+            personal_care = budget[budget['Category'] == 'Personal Care Items']
+            gifts = budget[budget['Category'] == 'Gifts']
+            household = budget[budget['Category'] == 'Household Supplies']
+
+            if len(budget.index) == 0:
+                            return render(
+                                request=request,
+                                template_name='expense_tracking/budget.html',
+                                context={
+                                    'current_month_display_name': current_month_display_name,
+                                    'current_year': current_year,
+                                    'none': 'No records found!',
+                                }
+                            )
+            else:
+
+                food_chart =get_chart(food, 'Food')
+                gas_chart = get_chart(gas, 'Gas')
+                aquasana_chart = get_chart(aquasana, 'Aquasana')
+                clothing_chart = get_chart(clothing, 'Clothing')
+                salon_chart = get_chart(salon, 'Salon')
+                cleaning_chart = get_chart(cleaning, 'Cleaning')
+                toll_chart = get_chart(toll, 'Toll')
+                lawn_chart = get_chart(lawn, 'Lawn')
+                personal_care_chart = get_chart(personal_care, 'Personal')
+                gifts_chart = get_chart(gifts, 'Gifts')
+                household_chart = get_chart(household, 'Household')
+
+                charts = [
+                    food_chart, gas_chart, aquasana_chart,
+                    clothing_chart, salon_chart, cleaning_chart,
+                    toll_chart, lawn_chart, personal_care_chart,
+                    gifts_chart, household_chart
+                ]
+
+                return render(
+                    request=request,
+                    template_name='expense_tracking/budget.html',
+                    context={
+                        'current_month_display_name': current_month_display_name,
+                        'current_year': current_year,
+                        'budget': build_table(
+                                            df, 'blue_light'
+                                        ),
+                        'charts': charts
+                    }
+                )
+            
 
 @ login_required
 def results(request):
