@@ -655,18 +655,17 @@ def budget(request):
                 aquasana_chart = get_chart(aquasana, 'Aquasana')
                 clothing_chart = get_chart(clothing, 'Clothing')
                 salon_chart = get_chart(salon, 'Salon')
-                cleaning_chart = get_chart(cleaning, 'Cleaning')
+                cleaning_chart = get_chart(cleaning, 'Cleaners')
                 toll_chart = get_chart(toll, 'Toll')
                 lawn_chart = get_chart(lawn, 'Lawn')
-                personal_care_chart = get_chart(personal_care, 'Personal')
+                personal_care_chart = get_chart(personal_care, 'Per Care')
                 gifts_chart = get_chart(gifts, 'Gifts')
                 household_chart = get_chart(household, 'Household')
 
                 charts = [
-                    food_chart, gas_chart, aquasana_chart,
-                    clothing_chart, salon_chart, cleaning_chart,
-                    toll_chart, lawn_chart, personal_care_chart,
-                    gifts_chart, household_chart
+                    aquasana_chart, clothing_chart, cleaning_chart,
+                    food_chart, gifts_chart, household_chart, lawn_chart,
+                    personal_care_chart, salon_chart, gas_chart, toll_chart
                 ]
 
                 return render(
