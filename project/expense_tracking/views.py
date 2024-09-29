@@ -587,11 +587,14 @@ def budget(request):
         # Rename columns
         budget.columns =['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Current Monthly Balance',  'Rounded Monthly Expense Amount']
 
-        # Re-order colums
+        # Re-order columns
         budget = budget[['Category', 'Beginning Balance', 'Budget Amount', 'Total Monthly Balance', 'Monthly Expense Amount', 'Rounded Monthly Expense Amount', 'Current Monthly Balance']]
 
+        # Sort columns
+        sorted_budget = budget.sort_values(by=['Category'])
+
         # Convert dataframe to dictionary                                                                               
-        budget_dict = budget.to_dict(orient='records')                              
+        budget_dict = sorted_budget.to_dict(orient='records')                              
                                                                                  
         for data in budget_dict:                                                    
             Budget.objects.filter(name=data['Category']).update(                    
@@ -602,14 +605,14 @@ def budget(request):
             )    
 
         # Calculate the sum of numeric columns
-        numeric_sum = budget.select_dtypes(include='number').sum()
+        numeric_sum = sorted_budget.select_dtypes(include='number').sum()
 
         # Convert the numeric sums to a DataFrame with the same columns
         sum_row = pd.DataFrame(numeric_sum).transpose()
         sum_row['Category'] = 'Totals'
 
         # Append the sum row to the original DataFrame
-        df = pd.concat([budget, sum_row], ignore_index=True)
+        df = pd.concat([sorted_budget, sum_row], ignore_index=True)
 
         if len(budget.index) == 0:
                         return render(
