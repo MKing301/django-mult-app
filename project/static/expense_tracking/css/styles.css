@@ -32,7 +32,10 @@ label {
 }
 
 .alert {
+    position:fixed;
+    width: 98%;
     margin-top: 75px;
+    z-index: 9999;
 }
 
 .errorlist {
