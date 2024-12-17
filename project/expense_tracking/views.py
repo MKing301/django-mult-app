@@ -183,7 +183,7 @@ def expenses(request):
     # showing the date, type organization, amount and notes (with edit and
     # delete buttons)
 
-    my_expenses = Expense.objects.all()
+    my_expenses = Expense.objects.all().order_by('-expense_date')
 
     return render(request=request,
                   template_name='expense_tracking/expense.html',
