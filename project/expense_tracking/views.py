@@ -619,7 +619,7 @@ def budget(request):
             supplies = budget[budget['Category'] == 'Supplies']
             gifts = budget[budget['Category'] == 'Gifts']
 
-            if len(budget.index) == 0:``
+            if len(budget.index) == 0:
                             return render(
                                 request=request,
                                 template_name='expense_tracking/budget.html',
