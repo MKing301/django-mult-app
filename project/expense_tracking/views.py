@@ -616,11 +616,10 @@ def budget(request):
             cleaning = budget[budget['Category'] == 'Dry Cleaning']
             toll = budget[budget['Category'] == 'Transportation-Toll']
             lawn = budget[budget['Category'] == 'Lawn Care']
-            personal_care = budget[budget['Category'] == 'Personal Care Items']
+            supplies = budget[budget['Category'] == 'Supplies']
             gifts = budget[budget['Category'] == 'Gifts']
-            household = budget[budget['Category'] == 'Household Supplies']
 
-            if len(budget.index) == 0:
+            if len(budget.index) == 0:``
                             return render(
                                 request=request,
                                 template_name='expense_tracking/budget.html',
@@ -640,14 +639,13 @@ def budget(request):
                 cleaning_chart = get_chart(cleaning, 'Cleaners')
                 toll_chart = get_chart(toll, 'Toll')
                 lawn_chart = get_chart(lawn, 'Lawn')
-                personal_care_chart = get_chart(personal_care, 'Per Care')
+                supplies_chart = get_chart(supplies, 'Supplies')
                 gifts_chart = get_chart(gifts, 'Gifts')
-                household_chart = get_chart(household, 'Household')
 
                 charts = [
                     aquasana_chart, clothing_chart, cleaning_chart,
-                    food_chart, gifts_chart, household_chart, lawn_chart,
-                    personal_care_chart, salon_chart, gas_chart, toll_chart
+                    food_chart, gifts_chart, lawn_chart,
+                    supplies_chart, salon_chart, gas_chart, toll_chart
                 ]
 
                 return render(
