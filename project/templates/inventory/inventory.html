@@ -1,0 +1,111 @@
+{% extends 'inventory/layout.html' %}
+{% load static %}
+{% block title %}Inventory{% endblock %}
+{% block body %}
+<div class="page-content">
+  <div class="container-fluid">
+    <legend class="border-bottom mb-4">
+      Inventory
+    </legend>
+    <table id="inventoryTable" class="table table-sm table-hover table-responsive-sm table-bordered" width="100%">
+      <thead class="table-primary">
+      <tr>
+        <th class="fit">ID</th>
+        <th class="fit">Status</th>
+        <th class="fit">Asset ID</th>
+        <th class="fit">Item</th>
+        <th class="fit">Description</th>
+        <th class="fit">Location</th>
+        <th class="fit">Area</th>
+        <th class="fit">Mfg.</th>
+        <th class="fit">Model #</th>
+        <th class="fit">Serial #</th>
+        <th class="fit">Qty</th>
+        <th class="fit">Total Cost</th>
+        <th class="fit">Cost/Item</th>
+        <th class="fit">Assigned To</th>
+        <th class="fit">Approved By</th>
+        <th class="fit">Approved Date</th>
+        <th class="fit">Purchased From</th>
+        <th class="fit">Purchase Date</th>
+        <th class="fit">Inserted By</th>
+        <th class="fit">Inserted Date</th>
+        <th class="fit">Modified By</th>
+        <th class="fit">Modified Date</th>
+        <th class="fit"></th>
+        <th class="fit"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in inventory_list %}
+        <tr>
+          <td class="fit">{{item.id}}</td>
+          <td class="fit">{{item.stat__name}}</td>
+          <td class="fit">{{item.asset_id}}</td>
+          <td class="fit" style="text-align: left;">{{item.name}}</td>
+          <td width="25%" style="text-align: left; word-wrap: break-all;">{{item.description}}</td>
+          <td class="fit" style="text-align: left;">{{item.item_location__name}}</td>
+          <td class="fit" style="text-align: left;">{{item.item_area__name}}</td>
+          <td class="fit" style="text-align: left;">{{item.mfg__name}}</td>
+          <td class="fit" style="text-align: left;">{{item.model_no}}</td>
+          <td class="fit" style="text-align: left;">{{item.serial_no}}</td>
+          <td class="fit">{{item.qty}}</td>
+          <td class="fit" style="text-align: right;">${{item.total_cost|floatformat:2}}</td>
+          <td class="fit" style="text-align: right;">${{item.cost_per_item|floatformat:2}}</td>
+          <td class="fit" style="text-align: left;">{{item.assigned_to__name}}</td>
+          <td class="fit" style="text-align: left;">{{item.approved_by__name}}</td>
+          <td class="fit">{{item.approved_date|date:"Y/m/d"}}</td>
+          <td class="fit" style="text-align: left;">{{item.purchased_from}}</td>
+          <td class="fit">{{item.purchase_date|date:"Y/m/d"}}</td>
+          <td class="fit" style="text-align: left;">{{item.inserted_by}}</td>
+          <td class="fit">{{item.inserted_date|date:"Y/m/d"}}</td>
+          <td class="fit">{{item.modified_by}}</td>
+          <td class="fit">{{item.modified_date|date:"Y/m/d"}}</td>
+          <td class="fit">
+            <a href="{% url 'inventory:edit_item' item.id %}" class="btn btn-primary btn-sm">
+                Edit
+            </a>
+          </td>
+          <td class="fit">
+            <a href="{% url 'inventory:notes' item.id %}" class="btn btn-info btn-sm">
+                Notes
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+      $('#inventoryTable').DataTable( {
+          dom: 'Bfrtip',
+          ordering: false,
+          columnDefs: [
+              {
+                  targets: [0, 1, 10, 11, 12, 22, 23],
+                  className: 'noVis'
+              },
+              {
+                  "targets": [2, 16, 18, 19, 20, 21],
+                  "visible": false
+
+              }
+          ],
+          buttons: [
+              'pageLength',
+              {
+                  extend: 'colvis',
+                  columns: ':not(.noVis)'
+              }
+          ],
+          orderCellsTop: true,
+        initComplete: function() {
+          var table = this.api();
+
+        }
+      } );
+  } );
+</script>
+{% endblock %}

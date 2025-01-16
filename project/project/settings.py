@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'automotive.apps.AutomotiveConfig',
     'residential.apps.ResidentialConfig',
     'expense_tracking.apps.ExpenseTrackingConfig',
+    'inventory',
     'widget_tweaks',
     'crispy_forms',
     'crispy_bootstrap4',

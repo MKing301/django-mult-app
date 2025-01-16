@@ -1,0 +1,22 @@
+{% extends 'inventory/layout.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+    <main role="main">
+            <header class="page-heading">
+                <h1>Inventory Home</h1>
+            </header>
+            <section class="page-content">
+                    <div class="grid-container">
+                        <div id="longleaf">
+                            <img
+                            src="{% static  'residential/img/HomeImage.jpg' %}"
+                            alt="Image of house"
+                            class="responsive"
+                            />
+                        </div>
+                    </div>
+            </section>
+        </main>
+  </div>
+{% endblock %}
